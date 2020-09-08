@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: 'tectonic-typesetting/tectonic'
+          repository: "tectonic-typesetting/tectonic"
       - name: Clone vcpkg
         run: git clone https://github.com/microsoft/vcpkg
       - name: Install vcpkg
@@ -31,5 +31,8 @@ jobs:
         env:
           TECTONIC_DEP_BACKEND: vcpkg
           RUSTFLAGS: "-Ctarget-feature=+crt-static"
-      - name: Display
-        run: dir
+      - name: Upload tectonic.exe
+        uses: actions/upload-artifact@v2
+        with:
+          name: tectonic_windows
+          path: .\target\release\tectonic.exe

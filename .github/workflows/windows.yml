@@ -1,0 +1,25 @@
+name: Build windows executable
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Clone vcpkg
+        run: git clone https://github.com/microsoft/vcpkg
+      - name: Install vcpkg
+        run: .\vcpkg\bootstrap-vcpkg.bat
+      - name: Install dependencies
+        run: .\vcpkg\vcpkg install --triplet x64-windows-static fontconfig freetype harfbuzz[icu,graphite2]
+      - name: Build tectonic
+        run: cargo build --release
+        env:
+          TECTONIC_DEP_BACKEND: vcpkg
+          RUSTFLAGS: "-Ctarget-feature=+crt-static"
+      - name: Display
+        run: dir

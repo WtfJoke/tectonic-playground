@@ -16,6 +16,8 @@ jobs:
         run: git clone https://github.com/microsoft/vcpkg
       - name: Install vcpkg
         run: .\vcpkg\bootstrap-vcpkg.bat
+      - name: Set vcpkg root
+        run: .\vcpkg\vcpkg integrate install
       - name: Install dependencies
         run: .\vcpkg\vcpkg install --triplet x64-windows-static fontconfig freetype harfbuzz[icu,graphite2]
       - uses: actions-rs/toolchain@v1

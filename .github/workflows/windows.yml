@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          repository: 'tectonic-typesetting/tectonic'
       - name: Clone vcpkg
         run: git clone https://github.com/microsoft/vcpkg
-      - name: Clone tectonic
-        run: git clone https://github.com/tectonic-typesetting/tectonic.git .
       - name: Install vcpkg
         run: .\vcpkg\bootstrap-vcpkg.bat
       - name: Install dependencies
